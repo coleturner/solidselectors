@@ -1,12 +1,11 @@
 {
-  "name": "pom",
+  "name": "solidselectors",
   "version": "0.1.0",
   "description": "Better automated testing through static page selectors.",
   "main": "index.js",
   "repository": "git@github.com:coleturner/pom.git",
   "author": "Cole Turner <turner.cole@gmail.com>",
   "license": "MIT",
-  "private": true,
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",

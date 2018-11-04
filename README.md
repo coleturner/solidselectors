@@ -1,50 +1,51 @@
-# 🐩 Page Object Model (Concept)
+# ⚔️ Solid Selectors
+`v0.1.0`
 
-For lack of a better name, here's what I imagine an ideal contract for page selectors and testing.
+Automated testing is delicate and takes a lot of effort. Tests can easily break because they rely on class names, or the page selector changed.
 
-## Concept
-
-Automated testing is hard - it's brittle and takes a lot of effort to keep it happy. One of the most frequent issues is when elements change class names and your tests break. What if page selectors were easy? What if we didn't care what their value was?
+Good page selectors wont't change:
 
 ```js
-// js/components/TodoList.js
+// TodoList.js
 
-import POM from 'pom';
+import { createSelector } from 'solidselectors';
 
-export const TODO_LIST_SELECTOR = POM.createSelector();
+export const TODO_LIST_SELECTOR = createSelector();
 
 export function TodoList({ items }) {
     return (
         <div data-testid={TODO_LIST_SELECTOR}>
             {items.map(item => <TodoItem key={item.id} {...item} />)}
         </div>
-    )
+    );
 }
+
+// test.js
+import { TODO_LIST_SELECTOR } from './TodoList';
+
+browser.click(`[data-testid="${TODO_LIST_SELECTOR}]`);
 ```
 
-## Implementation
+## Abstract
+Hours of debugging saves minutes from using good selectors. Tests that use class names or dynamic selectors are flakey and break more often. A strong contract between test and runtime code can fix that. 
 
-Babel will replace `POM.createSelector()` ahead-of-time so that the values are idempotent and unique. These references can be imported into your test code which can be used in place of current string-based selectors.
-
-- `createSelector()` will be transpiled with a unique string literal.
-
-In doing so, test code becomes more reliable because the value of the string no longer matters. Selectors become easier to maintain as the cognitive load of naming and searching is no longer.
-
-## Why this?
-
-Hours of debugging broken tests can save minutes from using good selectors. Tests break so often because we rely on flakey factors like class names or dynamic strings. This costs so much in time and money. 
-
-A strong contract between test and runtime code can fix that. With this concept it's the reference that matters, not the value. Because there's no value, you never have to update the selector.
-
-**Why is that better?**
+### I can already do this with strings...
 - Separate from CSS makes the intention clearer
-- Selectors remain constant, requiring no changes later
+- Selectors are coupled, requiring no changes later
 - Broken page objects will fail faster and louder - rather than waiting for the test to run it will surface during initialization of runtime.
 
+Strings would be easier. This solution adds a small amount of complexity. The time spent updating selectors, waiting for tests to fail, and debugging - is all time you can use to pet more dogs (and cats).
 
+## How it works
+### Babel plugin
 
-## Work in Progress
+The Babel plugin is optional but recommended. When it transpiles - the `createSelector()` calls will be replaced with strings and the `import { createSelector }` statements are removed 🎉
 
-- [X] Fallback runtime (when no Babel plugin is present)
-- [X] Babel 7 Plugin
-- [ ] Eslint plugin for best practices
+### Runtime module
+
+Calls to `createSelector()` return a unique, meaningless string. By design it's numbers to discourage hardcoding in source code.
+
+## Todo
+- [X] Create Babel 7 plugin & tests
+- [ ] Test importing plugin with .babelrc
+- [ ] Publish to npm
