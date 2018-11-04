@@ -5,11 +5,19 @@ export default function(babel) {
 
   const callVisitor = {
     CallExpression(path) {
-      if (path.node.callee.name !== this.createSelector) {
+      const { callee } = path.node;
+      if (this.defaultSpecifierName && callee.type === 'MemberExpression') {
+        if (
+          callee.object.name !== this.defaultSpecifierName ||
+          callee.property.name !== this.createSelector
+        ) {
+          return;
+        }
+      } else if (callee.name !== this.createSelector) {
         return;
       }
 
-      const fnName = path.node.callee.name;
+      const fnName = callee.name;
       const { arguments: fnArguments } = path.node;
 
       if (fnArguments.length > 1) {
@@ -90,18 +98,27 @@ export default function(babel) {
         return;
       }
 
-      const createSelectorImport = importPath.node.specifiers.find(
-        n => n.imported.name === 'createSelector',
+      const defaultSpecifier = importPath.node.specifiers.find(
+        n => n.type === 'ImportDefaultSpecifier',
       );
 
-      if (!createSelectorImport) {
+      const defaultSpecifierName =
+        defaultSpecifier && defaultSpecifier.local.name;
+
+      const createSelectorImport = importPath.node.specifiers.find(
+        n => n.imported && n.imported.name === 'createSelector',
+      );
+
+      if (!defaultSpecifier && !createSelectorImport) {
         return;
       }
 
       const createSelector =
-        createSelectorImport && createSelectorImport.local.name;
+        (createSelectorImport && createSelectorImport.local.name) ||
+        'createSelector';
 
       this.programPath.traverse(callVisitor, {
+        defaultSpecifierName,
         createSelector,
         importPath,
       });

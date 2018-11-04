@@ -1,5 +1,3 @@
-import { createFactory } from 'react';
-
 let count = 0;
 
 /**
@@ -22,3 +20,7 @@ export function createSelector({ prefix = 'pom' } = {}) {
   const namespace = reserveNamespace();
   return `${prefix}:${namespace}`;
 }
+
+export default {
+  createSelector,
+};
