@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pom 1. pom: 1. pom 1`] = `
+"
+import { createSelector } from 'pom';
+const selector = createSelector({ prefix: 'cool '});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const selector = \\"cool :0\\";
+"
+`;
+
+exports[`pom 2. pom: 2. pom 1`] = `
+"
+import POM from 'pom';
+const selector = POM.createSelector({ prefix: 'cool '});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const selector = \\"cool :1\\";
+"
+`;
+
+exports[`pom 3. pom: 3. pom 1`] = `
+"
+const { createSelector } = require('pom');
+const selector = createSelector({ prefix: 'cool '});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const selector = \\"cool :2\\";
+"
+`;
+
+exports[`pom 4. pom: 4. pom 1`] = `
+"
+const POM = require('pom');
+const selector = POM.createSelector({ prefix: 'cool '});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const selector = \\"cool :3\\";
+"
+`;
+
+exports[`pom 5. pom: 5. pom 1`] = `
+"
+import POM, { createSelector, somethingElse } from 'pom';
+const selector = createSelector({ prefix: 'cool '});
+POM.keepsThis();
+POM.keepsThat();
+somethingElse('stays too');
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import POM, { somethingElse } from 'pom';
+const selector = \\"cool :4\\";
+POM.keepsThis();
+POM.keepsThat();
+somethingElse('stays too');
+"
+`;
+
+exports[`pom 6. pom: 6. pom 1`] = `
+"
+const { createSelector, somethingElse } = require('pom');
+const selector = createSelector({ prefix: 'cool '});
+somethingElse('stays put');
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const {
+  somethingElse
+} = require('pom');
+
+const selector = \\"cool :5\\";
+somethingElse('stays put');
+"
+`;
+
+exports[`pom 7. pom: 7. pom 1`] = `
+"
+const { createSelector, somethingElse } = require('pom');
+const selector = createSelector({ prefix: 'cool '});
+somethingElse('stays put');
+somethingElse('stays put');
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const {
+  somethingElse
+} = require('pom');
+
+const selector = \\"cool :6\\";
+somethingElse('stays put');
+somethingElse('stays put');
+"
+`;
