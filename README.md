@@ -24,7 +24,7 @@ export function TodoList({ items }) {
 export const TODO_ITEM_SELECTOR = POM.createLiveSelector();
 
 export function TodoItem({ id, text }) {
-    const testId = TODO_ITEM_SELECTOR(id);
+    const testId = TODO_ITEM_SELECTOR.strict(id);
 
     return (
         <div data-testid={testId}>
@@ -45,7 +45,8 @@ In doing so, test code becomes more reliable because the value of the string no 
 
 ## Work in Progress
 
-- [ ] Fallback runtime (when no Babel plugin is present)
+- [X] Fallback runtime (when no Babel plugin is present)
 - [ ] Babel 7 Plugin
 - [ ] Babel 6 Plugin
 - [ ] Babel macro
+- [ ] Eslint plugin for best practices

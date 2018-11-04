@@ -1,0 +1,30 @@
+{
+  "name": "pom",
+  "version": "0.1.0",
+  "description": "Better automated testing through static page selectors.",
+  "main": "index.js",
+  "repository": "git@github.com:coleturner/pom.git",
+  "author": "Cole Turner <turner.cole@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.27.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3",
+    "prettier-eslint": "^8.8.2",
+    "regenerator-runtime": "^0.12.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
