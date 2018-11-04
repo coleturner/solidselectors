@@ -85,12 +85,12 @@ export default function(babel) {
   };
 
   const importVisitor = {
-    ImportDeclaration(path) {
-      if (path.node.source.value !== 'pom') {
+    ImportDeclaration(importPath) {
+      if (importPath.node.source.value !== 'pom') {
         return;
       }
 
-      const createSelectorImport = path.node.specifiers.find(
+      const createSelectorImport = importPath.node.specifiers.find(
         n => n.imported.name === 'createSelector',
       );
 
@@ -103,7 +103,11 @@ export default function(babel) {
 
       this.programPath.traverse(callVisitor, {
         createSelector,
+        importPath,
       });
+
+      // Clean up the import, don't need the runtime
+      importPath.remove();
     },
   };
 
