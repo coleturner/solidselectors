@@ -20,33 +20,32 @@ export function TodoList({ items }) {
         </div>
     )
 }
-
-export const TODO_ITEM_SELECTOR = POM.createLiveSelector();
-
-export function TodoItem({ id, text }) {
-    const testId = TODO_ITEM_SELECTOR.strict(id);
-
-    return (
-        <div data-testid={testId}>
-            {text}
-        </div>
-    )
-}
 ```
 
 ## Implementation
 
-Babel will replace `POM.createSelector()` and `POM.createLiveSelector()` ahead-of-time so that the values are idempotent and unique. These references can be imported into your test code which can be used in place of current string-based selectors.
+Babel will replace `POM.createSelector()` ahead-of-time so that the values are idempotent and unique. These references can be imported into your test code which can be used in place of current string-based selectors.
 
 - `createSelector()` will be transpiled with a unique string literal.
-- `createLiveSelector()` will be transpiled with a function that takes in a string and retuns a string literal hashed against a unique salt.
 
 In doing so, test code becomes more reliable because the value of the string no longer matters. Selectors become easier to maintain as the cognitive load of naming and searching is no longer.
+
+## Why this?
+
+Hours of debugging broken tests can save minutes from using good selectors. Tests break so often because we rely on flakey factors like class names or dynamic strings. This costs so much in time and money. 
+
+A strong contract between test and runtime code can fix that. With this concept it's the reference that matters, not the value. Because there's no value, you never have to update the selector.
+
+**Why is that better?**
+- Separate from CSS makes the intention clearer
+- Selectors remain constant, requiring no changes later
+- Broken page objects will fail faster and louder - rather than waiting for the test to run it will surface during initialization of runtime.
+
+
 
 ## Work in Progress
 
 - [X] Fallback runtime (when no Babel plugin is present)
 - [ ] Babel 7 Plugin
-- [ ] Babel 6 Plugin
-- [ ] Babel macro
+- [ ] React HoC
 - [ ] Eslint plugin for best practices
