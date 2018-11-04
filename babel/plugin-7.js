@@ -1,15 +1,11 @@
-import { createSelector, createLiveSelector } from '..';
+import { createSelector } from '..';
 
 export default function(babel) {
   const { types: t } = babel;
 
-
   const callVisitor = {
     CallExpression(path) {
-      if (
-        path.node.callee.name !== this.createSelector &&
-        path.node.callee.name !== this.createLiveSelector
-      ) {
+      if (path.node.callee.name !== this.createSelector) {
         return;
       }
 
@@ -78,10 +74,8 @@ export default function(babel) {
       if (this.createSelector) {
         const selector = createSelector({ prefix: prefixValueLiteral });
         path.replaceWith(t.stringLiteral(selector));
-      } else if (this.createLiveSelector) {
-        path.replaceWith(t.stringLiteral(`${prefixValueLiteral}:"cool"`));
       } else {
-          throw new Error('An unknown error has occurred');
+        throw new Error('An unknown error has occurred');
       }
 
       if (theVariableDeclarator) {
@@ -100,23 +94,15 @@ export default function(babel) {
         n => n.imported.name === 'createSelector',
       );
 
-      const createLiveSelectorImport = path.node.specifiers.find(
-        n => n.imported.name === 'createLiveSelector',
-      );
-
-      if (!createSelectorImport && !createLiveSelectorImport) {
+      if (!createSelectorImport) {
         return;
       }
 
       const createSelector =
         createSelectorImport && createSelectorImport.local.name;
-      const createLiveSelector =
-        createLiveSelectorImport && createLiveSelectorImport.local.name;
 
-      console.log(createSelectorImport);
       this.programPath.traverse(callVisitor, {
         createSelector,
-        createLiveSelector,
       });
     },
   };
@@ -126,8 +112,7 @@ export default function(babel) {
     visitor: {
       Program(programPath) {
         programPath.traverse(importVisitor, { programPath });
-      },import { createLiveSelector } from '..';
-
+      },
     },
   };
 }

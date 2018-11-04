@@ -46,6 +46,5 @@ A strong contract between test and runtime code can fix that. With this concept 
 ## Work in Progress
 
 - [X] Fallback runtime (when no Babel plugin is present)
-- [ ] Babel 7 Plugin
-- [ ] React HoC
+- [X] Babel 7 Plugin
 - [ ] Eslint plugin for best practices
