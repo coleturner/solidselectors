@@ -2,35 +2,7 @@
 
 exports[`solidselectors 1. solidselectors: 1. solidselectors 1`] = `
 "
-import { createSelector } from 'pom';
-const selector = createSelector({ prefix: 'cool '});
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-import { createSelector } from 'pom';
-const selector = createSelector({
-  prefix: 'cool '
-});
-"
-`;
-
-exports[`solidselectors 2. solidselectors: 2. solidselectors 1`] = `
-"
-import POM from 'pom';
-const selector = POM.createSelector({ prefix: 'cool '});
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-import POM from 'pom';
-const selector = POM.createSelector({
-  prefix: 'cool '
-});
-"
-`;
-
-exports[`solidselectors 3. solidselectors: 3. solidselectors 1`] = `
-"
-const { createSelector } = require('pom');
+import { createSelector } from 'solidselectors';
 const selector = createSelector({ prefix: 'cool '});
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -39,9 +11,9 @@ const selector = \\"cool :0\\";
 "
 `;
 
-exports[`solidselectors 4. solidselectors: 4. solidselectors 1`] = `
+exports[`solidselectors 2. solidselectors: 2. solidselectors 1`] = `
 "
-const POM = require('pom');
+import POM from 'solidselectors';
 const selector = POM.createSelector({ prefix: 'cool '});
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -50,9 +22,31 @@ const selector = \\"cool :1\\";
 "
 `;
 
+exports[`solidselectors 3. solidselectors: 3. solidselectors 1`] = `
+"
+const { createSelector } = require('solidselectors');
+const selector = createSelector({ prefix: 'cool '});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const selector = \\"cool :2\\";
+"
+`;
+
+exports[`solidselectors 4. solidselectors: 4. solidselectors 1`] = `
+"
+const POM = require('solidselectors');
+const selector = POM.createSelector({ prefix: 'cool '});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const selector = \\"cool :3\\";
+"
+`;
+
 exports[`solidselectors 5. solidselectors: 5. solidselectors 1`] = `
 "
-import POM, { createSelector, somethingElse } from 'pom';
+import POM, { createSelector, somethingElse } from 'solidselectors';
 const selector = createSelector({ prefix: 'cool '});
 POM.keepsThis();
 POM.keepsThat();
@@ -60,10 +54,8 @@ somethingElse('stays too');
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import POM, { createSelector, somethingElse } from 'pom';
-const selector = createSelector({
-  prefix: 'cool '
-});
+import POM, { somethingElse } from 'solidselectors';
+const selector = \\"cool :4\\";
 POM.keepsThis();
 POM.keepsThat();
 somethingElse('stays too');
@@ -72,7 +64,7 @@ somethingElse('stays too');
 
 exports[`solidselectors 6. solidselectors: 6. solidselectors 1`] = `
 "
-const { createSelector, somethingElse } = require('pom');
+const { createSelector, somethingElse } = require('solidselectors');
 const selector = createSelector({ prefix: 'cool '});
 somethingElse('stays put');
 
@@ -80,16 +72,16 @@ somethingElse('stays put');
 
 const {
   somethingElse
-} = require('pom');
+} = require('solidselectors');
 
-const selector = \\"cool :2\\";
+const selector = \\"cool :5\\";
 somethingElse('stays put');
 "
 `;
 
 exports[`solidselectors 7. solidselectors: 7. solidselectors 1`] = `
 "
-const { createSelector, somethingElse } = require('pom');
+const { createSelector, somethingElse } = require('solidselectors');
 const selector = createSelector({ prefix: 'cool '});
 somethingElse('stays put');
 somethingElse('stays put');
@@ -98,9 +90,9 @@ somethingElse('stays put');
 
 const {
   somethingElse
-} = require('pom');
+} = require('solidselectors');
 
-const selector = \\"cool :3\\";
+const selector = \\"cool :6\\";
 somethingElse('stays put');
 somethingElse('stays put');
 "
