@@ -1,4 +1,4 @@
-import { createSelector } from '..';
+import { createSelector } from '../src';
 
 describe('createSelector()', () => {
   test('Prefix can be specified', () => {

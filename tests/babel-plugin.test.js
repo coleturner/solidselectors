@@ -1,5 +1,5 @@
 import pluginTester from 'babel-plugin-tester';
-import plugin from '../babel/plugin-7';
+import plugin from '../src/babel/plugin-7';
 
 pluginTester({
   plugin,
