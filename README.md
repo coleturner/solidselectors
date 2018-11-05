@@ -2,7 +2,7 @@
 
 Automated testing is delicate and takes a lot of effort. Tests can easily break because they rely on class names, or the page selector changed.
 
-Good page selectors wont't change:
+Good page selectors won't change:
 
 ```js
 // TodoList.js
@@ -39,6 +39,8 @@ Strings would be easier. This solution adds a small amount of complexity. The ti
 ### Babel plugin
 
 The Babel plugin is optional but recommended. When it transpiles - the `createSelector()` calls will be replaced with strings and the `import { createSelector }` statements are removed 🎉
+
+If you don't use the Babel plugin - be careful not to mutate the `require.cache` module cache. Doing so could cause the `solidselectors` package to lose its singleton data structures. 
 
 ### Runtime module
 
