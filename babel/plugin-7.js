@@ -3,17 +3,32 @@ import { createSelector } from '..';
 const moduleName = 'solidselectors';
 const createSelectorFnName = 'createSelector';
 
+/**
+ * Solid Selectors - Babel Transformer
+ * This will replace createSelector calls
+ * and remove any dead imports
+ * @param {BabelAPI} babel
+ * @returns
+ */
 export default function(babel) {
   const { types: t } = babel;
 
+  // State here is for tracking removed calls
+  // Because sometimes the tree mutations are not inline
   const defaultState = { removedCalls: 0, removedMemberExp: 0 };
 
+  /**
+   * This visitor is fired when matching imports are found.
+   * Here is where the createSelector calls are replaced
+   */
   const callVisitor = {
     CallExpression(path) {
       const { callee } = path.node;
 
+      // Member Expression use cases are such as SolidSelectors.createSelector()
       const isMemberExp = callee.type === 'MemberExpression';
 
+      // defaultSpecifierName = SolidSelectors or w/e the user wants
       if (this.defaultSpecifierName && isMemberExp) {
         if (
           callee.object.name !== this.defaultSpecifierName ||
@@ -32,9 +47,12 @@ export default function(babel) {
         throw new Error(`\`${fnName}\` expects at most one argument`);
       }
 
+      // If there are any provided options, which is not documented
+      // Then we hold it in theObject
       let theObject;
       let theVariableDeclarator;
 
+      // Some argument validation to prevent non-literal values
       if (fnArguments.length) {
         theObject = fnArguments[0];
 
@@ -75,6 +93,7 @@ export default function(babel) {
         }
       }
 
+      // If the user did some digging and found that the prefix can be customized
       const prefixProperty =
         theObject && theObject.properties.find(n => n.key.name === 'prefix');
       const prefixValue = prefixProperty && prefixProperty.value;
@@ -99,17 +118,21 @@ export default function(babel) {
         if (isMemberExp) {
           this.state.removedMemberExp += 1;
         }
-      } else {
-        throw new Error('An unknown error has occurred');
       }
 
+      // Potential bug - if we remove this without capturing all of the function calls
       if (theVariableDeclarator) {
         theVariableDeclarator.remove();
       }
     },
   };
 
+  /**
+   * The import visitor works backwards by first
+   * checking if there are any imports from `solidselectors`
+   */
   const importVisitor = {
+    // handle common js
     CallExpression(callPath) {
       if (
         callPath.node.callee.name !== 'require' ||
@@ -182,6 +205,7 @@ export default function(babel) {
         varDeclarationPath.remove();
       }
     },
+    // handle es modules
     ImportDeclaration(importPath) {
       if (importPath.node.source.value !== moduleName) {
         return;
@@ -244,7 +268,7 @@ export default function(babel) {
   };
 
   return {
-    name: 'pom', // not required
+    name: moduleName, // not required
     visitor: {
       Program(programPath) {
         programPath.traverse(importVisitor, { programPath });
