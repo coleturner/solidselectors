@@ -7,7 +7,7 @@ const selector = createSelector({ prefix: 'cool '});
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const selector = \\"cool :0\\";
+const selector = \\"cool :c0642c2f-5c84-4f61-b338-2b813887d53f\\";
 "
 `;
 
@@ -18,7 +18,7 @@ const selector = POM.createSelector({ prefix: 'cool '});
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const selector = \\"cool :1\\";
+const selector = \\"cool :43d2f1c8-e680-434c-bc1e-ff083ba4e5de\\";
 "
 `;
 
@@ -29,7 +29,7 @@ const selector = createSelector({ prefix: 'cool '});
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const selector = \\"cool :2\\";
+const selector = \\"cool :534b866f-1ece-4cce-8e4c-de9c2dc660c0\\";
 "
 `;
 
@@ -40,7 +40,7 @@ const selector = POM.createSelector({ prefix: 'cool '});
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const selector = \\"cool :3\\";
+const selector = \\"cool :d11b1661-83b6-4aa7-99b0-6cf921471834\\";
 "
 `;
 
@@ -55,7 +55,7 @@ somethingElse('stays too');
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import POM, { somethingElse } from 'solidselectors';
-const selector = \\"cool :4\\";
+const selector = \\"cool :932cc4f4-1dc1-4a95-b874-7d2347cfda0d\\";
 POM.keepsThis();
 POM.keepsThat();
 somethingElse('stays too');
@@ -74,7 +74,7 @@ const {
   somethingElse
 } = require('solidselectors');
 
-const selector = \\"cool :5\\";
+const selector = \\"cool :b649f30f-0306-4296-974b-fffd75dbf9d8\\";
 somethingElse('stays put');
 "
 `;
@@ -92,7 +92,7 @@ const {
   somethingElse
 } = require('solidselectors');
 
-const selector = \\"cool :6\\";
+const selector = \\"cool :f1b9cb6e-fed6-4ca6-b8b6-d761bbc87b63\\";
 somethingElse('stays put');
 somethingElse('stays put');
 "
