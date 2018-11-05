@@ -1,6 +1,6 @@
 import { createSelector } from '..';
 
-const moduleName = 'pom';
+const moduleName = 'solidselectors';
 const createSelectorFnName = 'createSelector';
 
 export default function(babel) {
@@ -79,16 +79,20 @@ export default function(babel) {
         theObject && theObject.properties.find(n => n.key.name === 'prefix');
       const prefixValue = prefixProperty && prefixProperty.value;
 
-      if (prefixValue.type !== 'StringLiteral') {
+      if (prefixValue && prefixValue.type !== 'StringLiteral') {
         throw new Error(
           `\`${fnName}\` expects option 'prefix' to be a string literal.`,
         );
       }
 
-      const prefixValueLiteral = prefixValue.value;
+      const prefixValueLiteral = prefixValue && prefixValue.value;
 
       if (this.createSelector) {
-        const selector = createSelector({ prefix: prefixValueLiteral });
+        const options = prefixValueLiteral
+          ? { prefix: prefixValueLiteral }
+          : undefined;
+
+        const selector = createSelector(options);
         path.replaceWith(t.stringLiteral(selector));
         this.state.removedCalls += 1;
 
