@@ -1,14 +1,13 @@
-let count = 0;
+import uuidv4 from 'uuid';
 
 /**
  * Responsible for keying individual calls
  * @returns {String} a unique value for this call
  */
 function reserveNamespace() {
-  let namespace = count;
-  count++;
+  const namespace = uuidv4();
 
-  return namespace.toString();
+  return namespace;
 }
 
 /**
@@ -16,7 +15,7 @@ function reserveNamespace() {
  * @param {String} .prefix to prepend to the selector
  * @returns {String}
  */
-export function createSelector({ prefix = 'pom' } = {}) {
+export function createSelector({ prefix = 'solid-selector' } = {}) {
   const namespace = reserveNamespace();
   return `${prefix}:${namespace}`;
 }

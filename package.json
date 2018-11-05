@@ -29,5 +29,8 @@
     "test:watch": "jest --watch",
     "build": "rm -rf ./build && mkdir ./build && babel -D -d build src package.json",
     "prepublishOnly": "[[ \"$PWD\" =~ /build ]] || echo 'Error: Must publish from ./build'"
+  },
+  "dependencies": {
+    "uuid": "^3.3.2"
   }
 }
