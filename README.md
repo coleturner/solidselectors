@@ -1,5 +1,4 @@
 # ⚔️ Solid Selectors
-`v0.1.0`
 
 Automated testing is delicate and takes a lot of effort. Tests can easily break because they rely on class names, or the page selector changed.
 
@@ -44,3 +43,24 @@ The Babel plugin is optional but recommended. When it transpiles - the `createSe
 ### Runtime module
 
 Calls to `createSelector()` return a unique, meaningless string. By design it's numbers to discourage hardcoding in source code.
+
+## Installation
+
+The first step is adding the dependencies:
+
+```sh
+# npm
+npm install --save solidselectors
+
+# yarn 
+yarn add solidselectors
+```
+
+(Optional but recommended): add the Babel plugin:
+
+```json
+{ 
+    "plugins": ["solidselectors/babel/plugin-7"]
+}
+```
+You're ready to start using Solid Selectors. If you run into any trouble please feel free to open an issue. Contributions and feedback are warmly welcomed.
