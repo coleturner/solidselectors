@@ -1,12 +1,13 @@
 {
   "name": "solidselectors",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Better automated testing through static page selectors.",
   "main": "index.js",
-  "repository": "git@github.com:coleturner/pom.git",
+  "repository": "git@github.com:coleturner/solidselectors.git",
   "author": "Cole Turner <turner.cole@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "babel-core": "^7.0.0-bridge.0",
@@ -25,6 +26,8 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "rm -rf ./build && mkdir ./build && babel -D -d build src package.json",
+    "prepublishOnly": "[[ \"$PWD\" =~ /build ]] || echo 'Error: Must publish from ./build'"
   }
 }

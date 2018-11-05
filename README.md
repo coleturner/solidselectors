@@ -44,8 +44,3 @@ The Babel plugin is optional but recommended. When it transpiles - the `createSe
 ### Runtime module
 
 Calls to `createSelector()` return a unique, meaningless string. By design it's numbers to discourage hardcoding in source code.
-
-## Todo
-- [X] Create Babel 7 plugin & tests
-- [ ] Test importing plugin with .babelrc
-- [ ] Publish to npm
